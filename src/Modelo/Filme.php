@@ -1,46 +1,41 @@
 <?php
 
-class Filme {
-    private string $nome = 'Nome padrão';
-    private int $anoLancamento = 2023;
-    private string $genero = 'ação';
-    private array $notas = [];
+class Filme
+{
+    private array $notas;
 
+    public function __construct(
+        private readonly string $nome,
+        private readonly int $anoLancamento,
+        private readonly Genero $genero
+    ) {
+        $this->notas = [];
+    }
 
-    public function avalia(float $nota): void {
+    public function avalia(float $nota): void
+    {
         $this->notas[] = $nota;
     }
 
     public function media(): float {
-        $somaNotas = array_sum($this->notas);
-        $quantidadeNotas = count($this->notas);
-
-        return $somaNotas / $quantidadeNotas;
+        if (count($this->notas) === 0) {
+            return 0;
+        }
+        return array_sum($this->notas) / count($this->notas);
     }
 
-    
-    public function GetNome() {
+    public function getNome(): string
+    {
         return $this->nome;
     }
 
-    public function SetNome($nomeNovo) {
-        $this->nome = $nomeNovo;
-    }
-
-    public function GetAnoLancamento(): int {
+    public function getAnoLancamento(): int
+    {
         return $this->anoLancamento;
     }
 
-    public function SetAnoLancamento(int $anoLancamentoNovo) {
-        $this->anoLancamento = $anoLancamentoNovo;
-    }
-
-    public function GetGenero() {
+    public function getGenero(): Genero
+    {
         return $this->genero;
     }
-
-    public function SetGenero($generoNovo) {
-        $this->genero = $generoNovo;
-    }
 }
-
