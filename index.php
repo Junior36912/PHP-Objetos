@@ -1,7 +1,10 @@
 <?php
 
 require __DIR__ . "/src/Modelo/Genero.php";
+require __DIR__ . "/src/Modelo/Titulo.php";
+require __DIR__ . "/src/Modelo/Serie.php";
 require __DIR__ . "/src/Modelo/Filme.php";
+require __DIR__ . "/src/Calculos/CalculadoraDeMaratona.php";
 
 echo "Bem-vindo(a) ao ScreenMatch\n";
 
@@ -9,6 +12,7 @@ $filme = new Filme(
     'Thor Ragnarok',
     2021,
     Genero::SuperHeroi,
+    120,
 );
 
 $filme->avalia(10);
@@ -21,12 +25,19 @@ var_dump($filme);
 
 echo "Média de avaliações: " . $filme->media() . "\n";
 
-$filme2 = new Filme(
-    "Moana 2",
-    2024,
-    Genero::Drama,
-);
 
-var_dump($filme2);
+$serie = new Serie('Lost', 2007, Genero::Drama, 10, 20, 30);
 
-echo "Média de avaliações: " . $filme2->media() . "\n";
+echo $serie->anoLancamento . "\n";
+
+$serie->avalia(8);
+
+echo $serie->media() . "\n";
+
+$calculadora = new CalculadoraDeMaratona();
+
+$calculadora->inclui($filme);
+$calculadora->inclui($serie);
+$duracao = $calculadora->duracao();
+
+echo "Para essa maratona voce precisa de $duracao minutos";
